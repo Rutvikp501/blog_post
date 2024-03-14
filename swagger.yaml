@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: My API
+  version: 1.0.0
+  description: These are the APIs of My Small Projects 
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
+
+paths:
+  /:
+    get:
+      tags:
+        - Home
+      description: Home
+      responses:
+        '200':
+          description: Home Page
+        '401':
+          description: Unauthorized
+  
+  /user/:
+    get:
+      tags:
+        - User API
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+  /user/login:
+    post:
+      tags:
+        - User API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Email:
+                  type: string
+                Password:
+                  type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+  /user/register:
+    post:
+      tags:
+        - User API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LoginID:
+                  type: string
+                Name:
+                  type: string
+                Email:
+                  type: string
+                Password:
+                  type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+
+  /post/createPost:
+    post:
+      tags:
+        - Post API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                author:
+                  type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+  /post/:
+    get:
+      tags:
+        - User API
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
