@@ -15,9 +15,7 @@ exports.GetAllPost = async (req, res) => {
 
 exports.CreatePost = async (req, res) => {
     const { title, content, author } = req.body;
-    console.log(req.body);
     let  authorID =  await usermodel.find({ Email: author });
-    console.log(authorID[0]._id);
    
     try {
         if (authorID==null) {
@@ -37,20 +35,24 @@ exports.CreatePost = async (req, res) => {
 
 exports.GetSinglePost = async (req, res) => {
     let post;
-    let blogPostId =req.params.id 
-    let UserId =req.params.id 
-    try {
-     let   post = await BlogPost.findById(blogPostId);
-        const populatedPost = await BlogPost.findById(blogPostId).populate('author');
-        console.log(post);
-        console.log(populatedPost);
-        if (post == null) {
+let blogPostId = req.params.id;
+let userId = req.params.id;
+console.log(userId);
+try {
+    let post = await BlogPost.findById(blogPostId);
+    if (post == null) {
+        const populatedPost = await BlogPost.findOne({ author: userId }).populate('author');
+        if (populatedPost == null) {
             return res.status(404).json({ message: 'Cannot find post' });
         }
         res.status(200).json(populatedPost);
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
+    } else {
+        console.log(post);
+        res.status(200).json(post);
     }
+} catch (error) {
+    return res.status(500).json({ message: error.message });
+}
 
 };
 
