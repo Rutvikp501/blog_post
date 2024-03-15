@@ -68,8 +68,6 @@ paths:
             schema:
               type: object
               properties:
-                LoginID:
-                  type: string
                 Name:
                   type: string
                 Email:
@@ -83,7 +81,7 @@ paths:
           description: Bad Request
 
 
-  /post/createPost:
+  /post/create:
     post:
       tags:
         - Post API
@@ -156,8 +154,7 @@ paths:
                 type: string
               content:
                 type: string
-              author:
-                type: string
+              
       responses:
         '200':
           description: Success
