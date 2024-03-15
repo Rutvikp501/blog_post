@@ -1,36 +1,97 @@
-const blogPostmodel = require("../models/blogpost.model");
-
+const BlogPost = require('../models/blogpost.model');
+const usermodel = require('../models/user.model');
 
 exports.GetAllPost = async (req, res) => {
-    
     try {
-        const user  = await blogPostmodel.find();
-        if (user.length>0){
-        res.status(200).send(user)
-        }else{
-        res.status(200).send("Dont have posts To Show...")
+        const posts = await BlogPost.find();
+        if (!posts) {
+            return res.status(404).json({ message: 'Post not found' });
         }
+        res.status(200).json(posts);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ message: error.message });
     }
 };
+
 exports.CreatePost = async (req, res) => {
-const { title, content, author } = req.body
-console.log(req.body);
-try {
+    const { title, content, author } = req.body;
+    console.log(req.body);
+    let  authorID =  await usermodel.find({ Email: author });
+    console.log(authorID[0]._id);
+   
+    try {
+        if (authorID==null) {
+            return res.status(404).json({ message: 'Author not found create account first' });
+        }
+        const post = new BlogPost({
+            title: title,
+            content: content,
+            author:  authorID[0]._id,
+        });
+        const newPost = await post.save();
+        res.status(201).json(newPost);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
 
+exports.GetSinglePost = async (req, res) => {
+    let post;
+    let blogPostId =req.params.id 
+    let UserId =req.params.id 
+    try {
+     let   post = await BlogPost.findById(blogPostId);
+        const populatedPost = await BlogPost.findById(blogPostId).populate('author');
+        console.log(post);
+        console.log(populatedPost);
+        if (post == null) {
+            return res.status(404).json({ message: 'Cannot find post' });
+        }
+        res.status(200).json(populatedPost);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 
-    const user = new blogPostmodel({
-        title: title,
-        content: content,
-        author: author,
-    })
-    await user.save();
-    res.send("Blog created Successfully");
+};
 
+exports.UpdatePost = async (req, res) => {
+    console.log(req.params.id);
+    try {
+        let post = await BlogPost.findById(req.params.id);
+        console.log(post);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
 
+        if (req.body.title != null) {
+            post.title = req.body.title;
+        }
+        if (req.body.content != null) {
+            post.content = req.body.content;
+        }
+        if (req.body.author != null) {
+            post.author = req.body.author;
+        }
 
-} catch (err) {
-    console.log(err);
-    res.send("Error...");
-}}
+        const updatedPost = await post.save();
+        res.status(200).json(updatedPost);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+exports.DeletePost = async (req, res) => {
+    console.log(req.params.id);
+    try {
+        let post = await BlogPost.findById(req.params.id);
+        console.log(post); // Check what post object is returned
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        let delete1 = await BlogPost.findByIdAndDelete({_id:req.params.id});
+        res.status(200).json({ message: 'Post deleted' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
+};

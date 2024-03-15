@@ -109,9 +109,78 @@ paths:
   /post/:
     get:
       tags:
-        - User API
+        - Post API
       responses:
         '200':
           description: Success
         '400':
           description: Bad Request
+
+  /post/getpost/{id}:
+    get:
+      tags:
+        - Post API
+      parameters:
+      - in: path
+        name: id
+        required: true
+        description: ID of the blog post to retrieve.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+
+  /post/update/{id}:
+    patch:
+      tags:
+        - Post API
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the blog post to update.
+          schema:
+            type: string
+        - in: body
+          name: requestBody
+          required: true
+          description: Updated post data.
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              content:
+                type: string
+              author:
+                type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+
+
+  /post/delete/{id}:
+    delete:
+      tags:
+        - Post API
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the blog post to delete.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Blog post not found
+        '500':
+          description: Internal server error

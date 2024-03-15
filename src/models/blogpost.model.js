@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const blogPostSchema = new Schema({
     title: { type: String, require: true },
     content: { type: String, require: true },
-    author: { type: String, require: true },
+    author:  { type: Schema.Types.ObjectId, ref: 'user', required: true },
 
 },
     { timestamps: true });

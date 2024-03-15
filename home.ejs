@@ -3,9 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Blogging Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        h1, h2, h3 {
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        li::before {
+            content: "\2022"; /* Bullet point character */
+            color: #007bff; /* Bullet point color */
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>testing</h1>
+    <div class="container">
+        <h1>Project Description: Blogging Platform</h1>
+        <p>Welcome to our Blogging Platform! This platform allows users to create, manage, and share their blog posts effortlessly. Below are the steps to get started:</p>
+        
+        <h2>User Management:</h2>
+        <ul>
+            <li>Create User: Begin by creating a user account. Provide necessary details like name, email, and password. Upon successful creation, you will receive a unique user ID.</li>
+            <li>Login: Once you've created your user account, you can log in using your email and password.</li>
+        </ul>
+        
+        <h2>Blog Post Management:</h2>
+        <ul>
+            <li>Get All Posts: Use the provided URL to fetch all the existing posts from all users. This gives you an overview of the content available on the platform.</li>
+            <li>Create Post: To share your thoughts or content, create a new blog post. You'll need to provide a title, content, and the author's Email (which you have used while creating user). All fields are mandatory.(Just to keep track in case we need author based posts)</li>
+            <li>View Post: After creating a post, you can view it by accessing its unique post ID, which you can obtain from the list of all posts.</li>
+            <li >Get Single Post: Retrieve a single post by providing either the user/author's ID or the post's ID. This allows you to access specific content quickly.</li>
+        </ul>
+        
+        <h2>Post Update and Deletion:</h2>
+        <ul>
+            <li >Update Post: If you need to make changes to a post, use the provided URL with the post's ID in the parameters. You can update the post's content or title as needed.</li>
+            <li>Delete Post: In case you want to remove a post, simply provide the post's ID in the URL parameters. This action deletes the specified post permanently.</li>
+        </ul>
+        
+        <a href="http://localhost:5111/sgr"><h2>Swagger Documentation:</h2></a>
+        <p>The entire API is documented using Swagger, providing clear endpoints and instructions on how to interact with each functionality.</p>
+
+    </div>
 </body>
 </html>
