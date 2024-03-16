@@ -6,8 +6,9 @@ To run the  application locally, please follow these steps:
 2. cd blog_post
 3. npm install
 4. npm start
+5. you have to create a .env file which will have   " PORT = 5111  and  DBURL =`mongodb://0.0.0.0:27017/smallprojects`" 
 
-   <h2 align="center">🖥️ Tech Stacks</h2>
+<h2 align="center">🖥️ Tech Stacks</h2>
 
 
 
