@@ -143,23 +143,23 @@ paths:
           description: ID of the blog post to update.
           schema:
             type: string
-        - in: body
-          name: requestBody
-          required: true
-          description: Updated post data.
-          schema:
-            type: object
-            properties:
-              title:
-                type: string
-              content:
-                type: string
-              
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
       responses:
         '200':
           description: Success
         '400':
           description: Bad Request
+
 
 
 

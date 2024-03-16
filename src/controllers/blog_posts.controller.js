@@ -34,12 +34,10 @@ exports.CreatePost = async (req, res) => {
 };
 
 exports.GetSinglePost = async (req, res) => {
-    let post;
 let blogPostId = req.params.id;
 let userId = req.params.id;
-console.log(userId);
 try {
-    let post = await BlogPost.findById(blogPostId);
+    let post = await BlogPost.findById(blogPostId).populate('author');
     if (post == null) {
         const populatedPost = await BlogPost.findOne({ author: userId }).populate('author');
         if (populatedPost == null) {
@@ -47,7 +45,6 @@ try {
         }
         res.status(200).json(populatedPost);
     } else {
-        console.log(post);
         res.status(200).json(post);
     }
 } catch (error) {
@@ -58,9 +55,10 @@ try {
 
 exports.UpdatePost = async (req, res) => {
     console.log(req.params.id);
+    console.log(req.body);
     try {
         let post = await BlogPost.findById(req.params.id);
-        console.log(post);
+        // console.log(post);
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
